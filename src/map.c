@@ -39,19 +39,19 @@ void Map_draw(Map *map)
         for (int j = left; j <= right; j++)
         {
             /* get the tile */
-            Tile *tile = Map_getTile(map, i, j);
+            tile_t *tile = map_get_tile( map, i, j );
 
             /* set position */
-            Sprite_setPosition(tile->sprite, j * 16 - player.x + 64, i * 16 - player.y + 64);
+            sprite_set_position(tile->sprite, j * 16 - player.x + 64, i * 16 - player.y + 64);
 
             /* draw it */
-            Sprite_draw(tile->sprite);
+            sprite_draw(tile->sprite);
         }
     }
 
     /* draw NPCs */
-    Sprite_setPosition(map->npcs[0]->sprite, map->npcs[0]->x - player.x + 64, map->npcs[0]->x - player.y + 60);
-    Sprite_draw(map->npcs[0]->sprite);
+    sprite_set_position(map->npcs[0]->sprite, map->npcs[0]->x - player.x + 64, map->npcs[0]->x - player.y + 60);
+    sprite_draw(map->npcs[0]->sprite);
 }
 
 Map *Map_get(unsigned int index)
