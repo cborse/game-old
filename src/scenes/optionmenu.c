@@ -34,15 +34,15 @@ void OptionMenu_init(void)
     optionmenu.maxSubIndex[1] = 8;
     
     /* create frame */
-    optionmenu.frame = Frame_create(0, 0, 160, 144);
+    optionmenu.frame = frame_create( 0, 0, 160, 144 );
     
     /* create cursor */
-    optionmenu.cursor = Sprite_create(8, 15, "assets/textures/cursor.png");
+    optionmenu.cursor = sprite_create( 8, 15, "assets/textures/cursor.png" );
 
     /* create main texts */
-    optionmenu.texts[0] = Text_create(16, 15, "TEXT SPEED");
-    optionmenu.texts[1] = Text_create(16, 31, "FRAME");
-    optionmenu.texts[2] = Text_create(16, 47, "CONFIRM");
+    optionmenu.texts[0] = text_create( 16, 15, "TEXT SPEED" );
+    optionmenu.texts[1] = text_create( 16, 31, "FRAME" );
+    optionmenu.texts[2] = text_create( 16, 47, "CONFIRM" );
 
     /* create text speed texts */
     optionmenu.textspeeds[0] = Text_create(80, 23, ":SLOW");
