@@ -38,13 +38,8 @@ void Map_draw(Map *map)
     {
         for (int j = left; j <= right; j++)
         {
-            /* get the tile */
             tile_t *tile = map_get_tile( map, i, j );
-
-            /* set position */
             sprite_set_position(tile->sprite, j * 16 - player.x + 64, i * 16 - player.y + 64);
-
-            /* draw it */
             sprite_draw(tile->sprite);
         }
     }
