@@ -10,7 +10,7 @@
 Map maps[NUM_MAPS];
 extern Player player;
 
-static void createMap(unsigned int id, const char *name, unsigned int w, unsigned int h, unsigned int north, 
+static void createMap(unsigned int id, const char *name, unsigned int w, unsigned int h, unsigned int north,
     unsigned int south, unsigned int west, unsigned int east, const char *csvfile);
 
 
@@ -22,7 +22,7 @@ void Map_createMaps(void)
     createMap(ROUTE29, "ROUTE 29", 60, 18, TREES, TREES, TREES, NEWBARK, "assets/maps/route1.csv");
 
     /* NPCs */
-    maps[NEWBARK].npcs[0] = NPC_get(0);
+    //maps[NEWBARK].npcs[0] = NPC_get(0);
 }
 
 void Map_draw(Map *map)
@@ -38,15 +38,11 @@ void Map_draw(Map *map)
     {
         for (int j = left; j <= right; j++)
         {
-            tile_t *tile = map_get_tile( map, i, j );
-            sprite_set_position(tile->sprite, j * 16 - player.x + 64, i * 16 - player.y + 64);
-            sprite_draw(tile->sprite);
+            Tile *tile = Map_getTile( map, i, j );
+            Sprite_setPosition(tile->sprite, j * 16 - player.x + 64, i * 16 - player.y + 64);
+            Sprite_draw(tile->sprite);
         }
     }
-
-    /* draw NPCs */
-    sprite_set_position(map->npcs[0]->sprite, map->npcs[0]->x - player.x + 64, map->npcs[0]->x - player.y + 60);
-    sprite_draw(map->npcs[0]->sprite);
 }
 
 Map *Map_get(unsigned int index)

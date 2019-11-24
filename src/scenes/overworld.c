@@ -31,8 +31,8 @@ void Overworld_init(void)
     Tile_createTiles();
 
     /* create NPCs */
-    NPC_createNPCs();
-    
+    //NPC_createNPCs();
+
     /* create maps */
     Map_createMaps();
 
@@ -52,7 +52,7 @@ static void shutdown(void)
     Tile_destroyTiles();
 
     /* destroy NPCs */
-    NPC_destroyNPCs();
+    //NPC_destroyNPCs();
 
     /* shut down player */
     Player_shutdown();
@@ -72,7 +72,7 @@ static void processEvent(sfEvent *event)
         {
             /* ENTER key */
             case sfKeyReturn:
-            
+
                 /* push menu */
                 Game_pushScene((Scene *) &menu);
                 break;
