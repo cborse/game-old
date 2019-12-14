@@ -1,0 +1,51 @@
+APP     = game
+
+CC      = gcc-9
+CXX     = g++-9
+
+SRCDIR  = src
+OBJDIR  = obj
+IDIR    = -Isrc -I/usr/local/Cellar/mysql/8.0.18_1/include/mysql
+
+LIBS    = -lcsfml-graphics -lcsfml-system -lcsfml-window -lsteam_api -lmysqlclient
+
+CSRCS    := $(shell find $(SRCDIR) -name '*.c')
+CSRCDIRS := $(shell find . -name '*.c' -exec dirname {} \; | uniq)
+COBJS    := $(patsubst %.c,$(OBJDIR)/%.o,$(CSRCS))
+CFLAGS    = -std=c11 -Wno-deprecated-declarations -Wall
+
+CPPSRCS    := $(shell find $(SRCDIR) -name '*.cpp')
+CPPSRCDIRS := $(shell find . -name '*.cpp' -exec dirname {} \; | uniq)
+CPPOBJS    := $(patsubst %.cpp,$(OBJDIR)/%.o,$(CPPSRCS))
+CPPFLAGS    = -std=c++11 -Wno-invalid-offsetof -fno-exceptions
+
+all: $(APP)
+
+$(APP) : buildrepo $(COBJS) $(CPPOBJS)
+	$(CXX) -o $@ $(COBJS) $(CPPOBJS) $(LIBS)
+
+$(OBJDIR)/%.o: %.cpp
+	$(CXX) $(CPPFLAGS) $(IDIR) -g -c $< -o $@
+
+$(OBJDIR)/%.o: %.c
+	$(CC) $(CFLAGS) $(IDIR) -g -c $< -o $@
+
+clean:
+	$(RM) -r obj
+
+distclean: clean
+	$(RM) $(APP)
+
+buildrepo:
+	@$(call make-repo)
+
+define make-repo
+   for dir in $(CSRCDIRS); \
+   do \
+	mkdir -p $(OBJDIR)/$$dir; \
+   done
+   for dir in $(CPPSRCDIRS); \
+   do \
+        mkdir -p $(OBJDIR)/$$dir; \
+   done
+endef
